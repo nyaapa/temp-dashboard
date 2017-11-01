@@ -1,0 +1,5 @@
+CREATE TABLE Temperature.Toronto ( 
+    EventDate Date DEFAULT toDate(EventTime),
+    EventTime DateTime,
+    MegaKelvin UInt32
+) ENGINE = MergeTree(EventDate, EventTime, 8192)
