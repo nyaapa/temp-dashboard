@@ -12,11 +12,10 @@ while my $conn = $s.accept()  {
 
 	my $request = HTTP::Request.new(:post<http://localhost:8123>);
 	$request.add-content("
-		insert into
-			Temperature.Iceboat(
+		insert into Temperature.Iceboat(
 			EventTime,
 			MegaKelvin
-			)
+		)
 		values
 			(now(), $temp)
 	");
