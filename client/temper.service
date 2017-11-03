@@ -1,0 +1,7 @@
+[Unit]
+Description=Push temperature info
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c '/home/nyaapa/temper/pcsensor 2>/dev/null | nc 158.69.219.155 7339 -w 10'
+TimeoutSec=30
