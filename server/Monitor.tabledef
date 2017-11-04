@@ -1,0 +1,6 @@
+CREATE TABLE Temperature.Monitor ( 
+	EventDate Date DEFAULT toDate(EventTime),  
+	App String,  
+	EventTime DateTime,  
+	Alive UInt8
+) ENGINE = ReplacingMergeTree(EventDate, App, 8192)
