@@ -1,0 +1,7 @@
+[Unit]
+Description=Check server status
+
+[Service]
+Type=oneshot
+ExecStart=/home/nyaapa/temp-dashboard/server/smonitor
+TimeoutSec=30
