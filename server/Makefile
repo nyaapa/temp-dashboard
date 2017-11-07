@@ -20,5 +20,6 @@ clean:
 rules-install:
 	sudo cp smonitor.{service,timer} /etc/systemd/system/
 	sudo systemctl enable smonitor.timer
+	sudo systemctl start smonitor.timer
 
 -include $(DEP)
