@@ -64,6 +64,7 @@ bool is_alive() {
 
   struct timeval  ts;
   ts.tv_sec = TIMEOUT_SEC;
+  ts.tv_usec = 0;
   if (connect(sockfd, (sockaddr*) &serv_addr, sizeof(serv_addr))) {
     if (errno != EINPROGRESS) {
       std::cerr << "error connecting: " << strerror(errno) << "\n";
