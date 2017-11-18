@@ -3,5 +3,5 @@ Description=Check server status
 
 [Service]
 Type=oneshot
-ExecStart=/home/nyaapa/temp-dashboard/server/smonitor
+ExecStart=/home/nyaapa/temp-dashboard/server/temp-server-mon
 TimeoutSec=30

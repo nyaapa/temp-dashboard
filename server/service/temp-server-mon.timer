@@ -1,5 +1,5 @@
 [Unit]
-Description=Run smonitor.service every minute
+Description=Run temp-server-mon.service every minute
 
 [Timer]
 OnCalendar=*:0/1
