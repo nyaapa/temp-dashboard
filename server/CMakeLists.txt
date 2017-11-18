@@ -3,7 +3,7 @@ project(temp-server)
 cmake_minimum_required(VERSION 3.9)
 
 set(CMAKE_CXX_COMPILER "clang++")
-set(CMAKE_CXX_FLAGS "-std=c++1z -W -Wall -Werror")
+set(CMAKE_CXX_FLAGS "-std=c++1z -W -Wall -Werror -O3")
 set(CMAKE_CXX_LINK_FLAGS "-lcurl")
 
 add_executable(temp-server-mon monitor.cpp)
