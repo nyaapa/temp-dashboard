@@ -6,6 +6,7 @@
 
 #include <exception>
 #include <string>
+#include <algorithm>
 
 #include "scommon.hpp"
 #include "ch.hpp"
@@ -39,36 +40,35 @@ int main() {
 		timeval  ts;
 		ts.tv_sec = TIMEOUT_SEC;
 		ts.tv_usec = 0;
-		if (setsockopt(newsockfd, SOL_SOCKET, SO_RCVTIMEO, &ts, sizeof(ts))) {
+		if (setsockopt(newsockfd, SOL_SOCKET, SO_RCVTIMEO, &ts, sizeof(ts))) 
 			throw std::runtime_error(std::string("error setting rcvtimeo socket opt: ") + strerror(errno));
 
-			std::array<char, 128> buffer;
-			buffer.fill(0);
-			if (read(newsockfd, &buffer[0], buffer.size()) < 0) {
-				std::cerr << "error reading from socket: " << strerror(errno) << "\n";
-				continue;
-			}
+		std::array<char, 128> buffer;
+		buffer.fill(0);
+		if (read(newsockfd, &buffer[0], buffer.size()) < 0) {
+			std::cerr << "error reading from socket: " << strerror(errno) << "\n";
+			continue;
+		}
 
-			size_t idx = 0;
-			while (idx < buffer.size() && buffer[idx] >= '0' && buffer[idx] <= '9') 
-				++idx;
+		size_t idx = 0;
+		while (idx < buffer.size() && buffer[idx] >= '0' && buffer[idx] <= '9') 
+			++idx;
 
-			if (idx && idx < (buffer.size() - 1) && buffer[idx] == 'M' && buffer[idx + 1] == 'K') {
-				buffer[idx] = '\0';
-				std::cout << "temp: " << buffer.data() << "\n";
+		if (idx && idx < (buffer.size() - 1) && buffer[idx] == 'M' && buffer[idx + 1] == 'K') {
+			buffer[idx] = '\0';
+			std::cout << "temp: " << buffer.data() << "\n";
 
-				temp::ch::post(R"(
-    		insert into Temperature.Bay222 (
-      	  	  EventTime, 
-      	  	  MegaKelvin
-    		) 
-    		values 
-      	  	  (now(), )" + std::string(buffer.data()) + R"( )
-					)", TIMEOUT_SEC);
-			} else {
-				buffer.back() = '\0';
-				std::cout << "read: '" << std::string(buffer.data()) << "'\n";
-			}
+			temp::ch::post(R"(
+    				insert into Temperature.Bay222 (
+		      	  	  EventTime, 
+      			  	  MegaKelvin
+    				) 
+	    			values 
+   			   	  	  (now(), )" + std::string(buffer.data()) + R"( )
+				)", TIMEOUT_SEC);
+		} else if (!std::equal(buffer.begin(), buffer.begin() + std::size("ping"), "ping\n")) {
+			buffer.back() = '\0';
+			std::cout << "read: '" << std::string(buffer.data()) << "'\n";
 		}
 	}
 

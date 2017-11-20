@@ -87,7 +87,7 @@ bool is_alive() {
 	if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, &ts, sizeof(ts)))
 		throw std::runtime_error(std::string("error setting sndtimeo socket opt: ") + strerror(errno));
 
-	if (write(sockfd, "\n", 1) < 0) {
+	if (write(sockfd, "ping\n", 5) < 0) {
 		std::cerr << "error writing to socket: " << strerror(errno) << "\n";
 		return false;
 	} 
