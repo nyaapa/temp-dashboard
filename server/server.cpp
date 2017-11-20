@@ -67,7 +67,7 @@ int main() {
    			   	  	  (now(), )" + std::string(buffer.data()) + R"( )
 				)", TIMEOUT_SEC);
 
-			if (write(sockfd, "ok\n", 3) < 0) 
+			if (write(newsockfd, "ok\n", 3) < 0) 
 				std::cerr << "error writing to socket: " << strerror(errno) << "\n";
 		} else { 
 			if (!std::equal(buffer.begin(), buffer.begin() + std::size("ping"), "ping\n")) {
@@ -75,7 +75,7 @@ int main() {
 				std::cout << "read: '" << std::string(buffer.data()) << "'\n";
 			}
 
-			if (write(sockfd, "nope\n", 5) < 0) 
+			if (write(newsockfd, "nope\n", 5) < 0) 
 				std::cerr << "error writing to socket: " << strerror(errno) << "\n";
 		}
 	}
