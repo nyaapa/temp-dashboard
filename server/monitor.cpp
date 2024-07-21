@@ -104,13 +104,14 @@ bool is_alive() {
 
 int main(void) {
 	temp::ch::post(R"(
-    	insert into Temperature.Monitor (
+    	insert into Air.Monitor (
+	  AppHash,
       	  App, 
       	  EventTime, 
       	  Alive
     	) 
     	values 
-      	  ('Server', now(), )" + std::string(is_alive() ? "1" : "0") + R"( )
+      	  ('Server', halfMD5('Server') now(), )" + std::string(is_alive() ? "1" : "0") + R"( )
 		)", TIMEOUT_SEC);
 	return 0;
 }

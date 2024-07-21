@@ -1,6 +1,7 @@
-CREATE TABLE Temperature.Monitor ( 
-	EventDate Date DEFAULT toDate(EventTime),  
-	App String,  
-	EventTime DateTime,  
+CREATE TABLE Air.Monitor ( 
+	AppHash BigInt,
+	App String,
+	EventTime DateTime,
 	Alive UInt8
-) ENGINE = ReplacingMergeTree(EventDate, App, 8192)
+) ENGINE = ReplacingMergeTree(AppHash)
+ORDER BY (AppHash, EventTime)

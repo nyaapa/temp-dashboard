@@ -1,0 +1,9 @@
+
+CREATE TABLE Air.Redmond (
+    EventTime DateTime,
+    Source LowCardinality(String),
+    EventType Enum('deca_pm25' = 1, 'deca_pm10' = 2, 'deca_kelvin' = 3, 'deca_humidity' = 4, 'co2' = 5, 'gas' = 6),
+    Value UInt32
+) ENGINE = MergeTree()
+ORDER BY (EventTime, Source)
+

@@ -7,7 +7,7 @@ namespace temp::scommon {
 	class socket_guard {
 		public:
 			socket_guard() {
-				sockfd = socket(AF_INET, SOCK_STREAM, 0);
+				sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 			}
 
 			socket_guard(int sockfd) : sockfd{sockfd} {}
